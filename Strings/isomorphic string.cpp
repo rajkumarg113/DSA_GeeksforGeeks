@@ -12,28 +12,33 @@ using namespace std;
 class Solution
 {
     public:
-    //Function to check if two strings are isomorphic.
     const int CHAR=26;
+    //Function to check if two strings are isomorphic.
     bool areIsomorphic(string str1, string str2)
     {
         
         // Your code here
+        bool visited[MAX_CHARS]={false};
+        int map[MAX_CHARS];
+        memset(map,-1,sizeof(map));
+        
         if(str1.size()!=str2.size())
             return false;
-        int count1[CHAR]={0};
-        int count2[CHAR]={0};
-        for(int i=0;i<str1.length();i++)
+        for(int i=0;i<str1.size();i++)
         {
-            count1[str1[i]-'a']++;
-            count2[str2[i]-'a']++;
-        }
-        for(int i=0;i<str1.length();i++)
-        {
-            if(count1[str1[i]-'a']!=count2[str2[i]-'a'])
+            if(map[str1[i]]==-1)
+            {
+                if(visited[str2[i]]==true)
+                    return false;
+                visited[str2[i]]=true;
+                map[str1[i]]=str2[i];
+                
+            }
+            else if(map[str1[i]]!=str2[i])
                 return false;
         }
         return true;
-        
+       
         
     }
 };
